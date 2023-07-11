@@ -17,14 +17,11 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Display Python version
         run: |
-          import sys
-          version = sys.version
-          print("Python version:", version)
-          with open("python_version.txt", "w") as f:
-            f.write(version)
+          python -c "import sys; print(sys.version)"
+          python -c "import platform; print(platform.python_version())"
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: python-version-${{ matrix.python-version }}
-          path: python_version_${{ matrix.python-version }}.txt
+        run: |
+          echo "sys.version" > sys_version.txt
+          echo "platform.python_version()" >> sys_version.txt
+          upload-artifact sys_version.txt
           
