@@ -28,8 +28,6 @@ jobs:
       - name: Upload artifact
         run: |
           echo "Uploading artifact for Python ${{ matrix.python-version }}"
-          artifacts:
-            name: artifact
-            files:
-              - artifact.txt
+          echo "python-version: ${{ matrix.python-version }}" >> sys_version.txt
+          upload-artifact sys_version.txt
           
