@@ -16,7 +16,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Display Python version
-        run: python -c "import sys; open('python_version_${{ matrix.python-version }}.txt', 'w').write(sys.version)"
+        run: |
+          import sys
+          version = sys.version
+          print("Python version:", version)
+          with open("python_version.txt", "w") as f:
+            f.write(version)
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
