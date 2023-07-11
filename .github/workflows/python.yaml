@@ -16,12 +16,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Display Python version
-        run: |
-          python -c "import sys; print(sys.version)"
-          python -c "import platform; print(platform.python_version())"
+        run: python -c "import sys; open('python_version_${{ matrix.python-version }}.txt', 'w').write(sys.version)"
       - name: Upload artifact
-        run: |
-          echo "sys.version" > sys_version.txt
-          echo "platform.python_version()" >> sys_version.txt
-          upload-artifact sys_version.txt
-          
+        uses: actions/upload-artifact@v2
+        with:
+          name: python-version-${{ matrix.python-version }}
+          path: python_version_${{ matrix.python-version }}.txt
